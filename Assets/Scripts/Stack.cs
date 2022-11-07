@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stack : MonoBehaviour
 {
-    
+
     [SerializeField] private GameManager _gameManager;
 
 
@@ -69,7 +69,7 @@ public class Stack : MonoBehaviour
             rightShoe.transform.rotation = _rightPrevious.rotation;
             rightShoe.transform.localPosition = new Vector3(_rightPrevious.position.x, _rightPrevious.position.y, _rightPrevious.position.z + _stackOffset);
             rightShoe.SetActive(false);
-            
+
             RightHeelsOnPlayer.Add(rightShoe.transform);
 
             _leftPrevious = leftShoe.transform;
@@ -99,7 +99,7 @@ public class Stack : MonoBehaviour
                 activeRightHeels.Add(RightHeelsOnPlayer[i]);
         }
 
-        if(_gameManager.CurrentState == GameManager.GameState.Play)
+        if (_gameManager.CurrentState == GameManager.GameState.Play)
         {
             if (activeLeftHeels.Count >= count && activeRightHeels.Count >= count)
             {
@@ -115,6 +115,7 @@ public class Stack : MonoBehaviour
             }
             else
             {
+
                 _gameManager.CurrentState = GameManager.GameState.Loose;
                 for (int i = 0; i < RightHeelsOnPlayer.Count; i++)
                 {
@@ -130,20 +131,25 @@ public class Stack : MonoBehaviour
                         LeftHeelsOnPlayer[i].GetComponent<BoxCollider>().enabled = false;
                     }
                 }
+
+
             }
         }
 
-        else if(_gameManager.CurrentState == GameManager.GameState.PreWin)
+        else if (_gameManager.CurrentState == GameManager.GameState.PreWin)
         {
             if (activeLeftHeels.Count >= count && activeRightHeels.Count >= count)
             {
                 for (int i = 0; i < count; i++)
                 {
                     LeftHeelsOnPlayer[lastActiveIndexForLeftStack].gameObject.SetActive(false);
+                    Instantiate(_instantiateLeftHeel, LeftHeelsOnPlayer[lastActiveIndexForLeftStack].position, Quaternion.identity);
                     RightHeelsOnPlayer[lastActiveIndexForRightStack].gameObject.SetActive(false);
+                    Instantiate(_instantiateRightHeel, RightHeelsOnPlayer[lastActiveIndexForRightStack].position, Quaternion.identity);
                     lastActiveIndexForLeftStack--;
                     lastActiveIndexForRightStack--;
                 }
+
             }
             else
             {
@@ -151,8 +157,8 @@ public class Stack : MonoBehaviour
             }
         }
 
-        
-        
+
+
 
 
 
