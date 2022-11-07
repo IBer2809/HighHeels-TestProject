@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    _currentDelta = Vector3.Lerp(_currentDelta, -_delta, 30f * Time.deltaTime);
+                    _currentDelta = Vector3.Lerp(_currentDelta, _delta, 30f * Time.deltaTime);
                     _splineFollower.motion.rotationOffset += new Vector3(0, 0, _currentDelta.x);
                     ClampPersonRotationtZ(-30, 30);
                 }
